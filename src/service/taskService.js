@@ -7,9 +7,7 @@ export const getAllTask = async (taskId) => {
     const res = await fetch(
       `${baseUrl}/tasks/workspace/${taskId}?pageNo=0&pageSize=10&sortBy=taskId&sortDirection=ASC`,
       {
-        method: "GET",
         headers: header,
-        body: JSON.stringify(taskId),
       }
     );
     const data = await res.json();

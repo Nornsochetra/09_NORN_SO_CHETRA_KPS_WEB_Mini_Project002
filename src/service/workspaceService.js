@@ -20,6 +20,20 @@ export const getAllWorkSpace = async () => {
   }
 };
 
+export const getWorkSpaceById = async (workSpaceId) => {
+  try {
+    const header = await headerToken();
+    const res = await fetch(`${baseUrl}/workspace/${workSpaceId}`, {
+      headers: header,
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error get workspace by id : ", error);
+    throw error;
+  }
+};
+
 export const createNewWorkspaceService = async (newWorkSpace) => {
   try {
     const header = await headerToken();

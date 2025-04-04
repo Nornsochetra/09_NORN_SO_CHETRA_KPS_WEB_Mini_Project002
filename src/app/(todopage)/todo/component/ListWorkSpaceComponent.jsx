@@ -1,16 +1,24 @@
-import { MoreHorizontal } from "lucide-react";
+"use client";
+import { useRouter } from "next/navigation";
 import CreateWorkSpaceComponent from "./CreateWorkSpaceComponent";
 import UpdateWorkSpaceComponent from "./UpdateWorkSpaceComponent";
-import { createNewWorkSpace } from "@/service/workspaceService";
-const ListWorkSpaceComponent = async ({ workspace }) => {
-  function getRandomColor() {
-    let letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+function getRandomColor() {
+  let letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
   }
+  return color;
+}
+const ListWorkSpaceComponent = ({ workspace, workId }) => {
+  const router = useRouter();
+  function handleGetWorkSpaceId(workId) {
+    router.push(`/todo/${workId}`);
+  }
+
   return (
     <aside className="w-80 h-full p-5 ">
       <CreateWorkSpaceComponent />
@@ -22,7 +30,8 @@ const ListWorkSpaceComponent = async ({ workspace }) => {
             {workspace.payload.map((data, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center py-2 mx-0.5"
+                className="flex justify-between items-center py-2 px-3 hover:bg-[#F8FAFC] rounded-xl"
+                onClick={() => handleGetWorkSpaceId(data.workspaceId)}
               >
                 <span className="flex items-center">
                   <span
